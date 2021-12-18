@@ -72,7 +72,7 @@ object UserManager {
 
         val database = Firebase.database
         database.getReference(UserModel.USERS_PATH).child(phoneNumber).setValue(user)
-            .addOnSuccessListener {
+            .addOnCompleteListener {
                 currentUserModel = user
                 PreferenceHelper.defaultPrefs(context)[KEY] = Gson().toJson(user)
                 completeListener.onSuccess()

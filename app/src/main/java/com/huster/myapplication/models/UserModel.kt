@@ -15,6 +15,7 @@ data class UserModel(
 ) {
     companion object {
         const val USERS_PATH = "users"
+        const val IMAGES_PATH = "images"
     }
 }
 

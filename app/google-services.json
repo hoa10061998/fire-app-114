@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "1933660137",
+    "firebase_url": "https://otp-vertification-da77a-default-rtdb.firebaseio.com",
+    "project_id": "otp-vertification-da77a",
+    "storage_bucket": "otp-vertification-da77a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1933660137:android:01488b8376e3781863c578",
+        "android_client_info": {
+          "package_name": "com.huster.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1933660137-90v45uf3osi2nguum4960tqfgggnpd24.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.huster.myapplication",
+            "certificate_hash": "718e62294e601bb439c17586009ffab0918c269f"
+          }
+        },
+        {
+          "client_id": "1933660137-p8ovg30ff8u62n3olddtluqevruladr8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.huster.myapplication",
+            "certificate_hash": "7e6a4338fb17dac908e69ec41dbc50e7f8fa866a"
+          }
+        },
+        {
+          "client_id": "1933660137-7vg7vfc8vcclj2dclb5m1utbqf666uuq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr15IzC5zoq5UrNYond6Omnni7-So5M9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1933660137-7vg7vfc8vcclj2dclb5m1utbqf666uuq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

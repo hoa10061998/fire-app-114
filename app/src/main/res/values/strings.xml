@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Emergency Fire Reporting System</string>
     <string name="hello_blank_fragment">Emergency Fire Reporting System</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="permission_required_toast">Cần quyền truy cập để thực hiện hành động này</string>
+    <string name="permission_rationale_location">Cần quyền truy cập vào Location của bạn</string>
+    <string name="location_permission_denied">Đã hủy quyền truy cập Location</string>
 </resources>
