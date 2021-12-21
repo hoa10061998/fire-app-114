@@ -36,6 +36,11 @@ import android.location.LocationManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.database.DatabaseReference
+import com.google.gson.Gson
+import com.huster.myapplication.models.UserLocationInfo
+import com.huster.myapplication.ui.otp.VerifyOtpCodeActivity
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), OnUserChangeListener, OnMapReadyCallback,
@@ -144,21 +149,58 @@ class MainActivity : AppCompatActivity(), OnUserChangeListener, OnMapReadyCallba
         isLoading.value = true
         try {
             val myLocation = getMyLocation()
-            val info = ImageInfo(urlImage, myLocation.first, myLocation.second)
+            val info = ImageInfo(urlImage, myLocation.first, myLocation.second, Date().time)
+
             UserManager.currentUserModel?.phoneNumber?.let { number ->
-                firebaseDatabase.reference.child("${UserModel.IMAGES_PATH}/$number")
-                    .setValue(info)
-                    .addOnFailureListener {
-                        isLoading.value = false
-                        showToast("Upload thất bại, vui lòng thử lại")
-                    }.addOnCompleteListener {
-                        isLoading.value = false
-                        showToast("Upload success")
+                val refRoot = firebaseDatabase.reference.child("${UserModel.IMAGES_PATH}/$number")
+
+                refRoot.get().addOnSuccessListener {
+                    val value = it.value
+                    if (value == null) {
+                        try {
+                            val newList = mutableListOf(info)
+                            val currentUserLocations = UserLocationInfo(info.createAt, newList)
+
+                            refRoot.addImageLocationValue(currentUserLocations)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            showErrorToast(e.message)
+                        }
+                    } else {
+                        val jsonValue = Gson().toJson(value)
+                        try {
+                            val currentUserLocations = Gson().fromJson(jsonValue, UserLocationInfo::class.java)
+                            val newList = currentUserLocations.imagesHistory.toMutableList().apply {
+                                add(0, info)
+                            }
+                            currentUserLocations.imagesHistory = newList
+
+                            refRoot.addImageLocationValue(currentUserLocations)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            showErrorToast(e.message)
+                        }
                     }
+                }
+                    .addOnFailureListener {
+                        it.printStackTrace()
+                    }
+
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun DatabaseReference.addImageLocationValue(locationsInfo: UserLocationInfo) {
+        this.setValue(locationsInfo)
+            .addOnFailureListener {
+                isLoading.value = false
+                showToast("Upload thất bại, vui lòng thử lại")
+            }.addOnCompleteListener {
+                isLoading.value = false
+                showToast("Upload success")
+            }
     }
 
     private lateinit var map: GoogleMap
